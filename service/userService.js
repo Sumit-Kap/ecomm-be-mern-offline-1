@@ -27,6 +27,7 @@ const userService = {
             const maskedPwd = existingUser.password;
 
             const isPasswordCorrect = bcrypt.compareSync(password, maskedPwd);
+            console.log("isCorrectpwd", isPasswordCorrect);
             if (isPasswordCorrect) {
                 const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.PRIVATE_KEY, { expiresIn: '10h', algorithm: 'HS256' })
                 callback(null, {

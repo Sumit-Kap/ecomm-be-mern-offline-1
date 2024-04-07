@@ -13,7 +13,7 @@ const userController = {
                     next();
                 }
                 else {
-                    res.cookie('session-cookie', response.token, { maxAge: 900000 })
+                    res.cookie('session-cookie', response.data.token, { maxAge: 900000 })
                     // res.redirect("/");
                     res.status(response.status).json(response);
                 }
@@ -22,6 +22,7 @@ const userController = {
     },
     signUp: (req, res, next) => {
         const { email, password, confirmPassword } = req.body;
+        console.log("print---", req.body);
         if (!email || !password || !confirmPassword) {
             req.appError = { status: 400, message: 'API body incorrect' }; // 400 bad request
             next()

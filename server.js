@@ -2,9 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const config = require('./config/dbConfig'); 
 const userRoute = require('./routes/userRoute');
+const cors = require('cors');
 const app = express();
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// parse application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+// app.use(bodyParser.json())
 app.use('/api/v1/user', userRoute);
 
 // establish  connection with DB
@@ -20,7 +25,6 @@ app.get('/health', (req,res) => {
 
 
 app.use((req, res) => {
-    console.log("req---", req);
     res.status(req?.appError?.status).json(req?.appError?.message);
 })
 
